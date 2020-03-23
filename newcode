@@ -1,0 +1,56 @@
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner ;
+
+public class Main {
+    public static void main(String arg[]){
+        int t, cars, pass, passw,p,r,k, i = 1,passcomp ;
+        Scanner in = new Scanner(System.in) ;
+        t = in.nextInt() ;
+        while(i <= t){
+            cars = in.nextInt() ;
+            pass = in.nextInt() ;
+            passw = in.nextInt() ;
+            p = in.nextInt() ;
+            r = in.nextInt() ;
+            k = in.nextInt() ;
+            passcomp = 0 ;
+            List<Integer> list=new ArrayList();
+            for(int time = 0 ; time <= k ; ){
+                if(passw != 0 && cars != 0){
+                  if(passw >= cars){
+                      passw = passw-cars ;
+                      list.add(time);
+                      list.add(cars) ;
+                      cars = 0 ;
+                  }
+                  else if(passw < cars){
+                      cars = cars-passw ;
+                      list.add(time);
+                      list.add(passw);
+                      passw = 0 ;
+                  }
+                }
+                ++time ;
+                if(time > k)
+                    break ;
+                if(time%r == 0 && pass > 0){
+                    --pass ;
+                    ++passw ;
+                }
+                for(int j = 0 ; j < list.size()-1 ; j += 2){
+                    if(list.get(j)+p == time){
+                        cars = cars+list.get(j+1) ;
+                        passcomp += list.get(j+1) ;
+                        list.remove(j) ;
+                        list.remove(j) ;
+                        break ;
+                    }
+                }
+            }
+            i += 1 ;
+            System.out.println(cars+" "+passcomp+" "+pass+" "+passw) ;
+        }
+    }
+}
